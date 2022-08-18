@@ -16,6 +16,7 @@ exports.deleteUser = exports.singIn = exports.singUp = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../config/config"));
+const mongoose_1 = require("mongoose");
 function createToken(user) {
     return jsonwebtoken_1.default.sign({
         id: user.id,
@@ -59,9 +60,10 @@ const singIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.singIn = singIn;
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = new user_1.default();
-        console.log(user);
-        return res.json(user);
+        yield user_1.default.deleteOne({
+            _id: new mongoose_1.Types.ObjectId("62fdc9da7e5a4f3a533adef1"),
+        });
+        res.send("User Deleted");
     }
     catch (error) {
         console.log(error);

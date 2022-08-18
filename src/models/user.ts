@@ -5,20 +5,26 @@ export interface IUser extends Document {
   password: string;
   comparePassword: any;
 }
-const userSchema = new Schema({
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-    lowercase: true,
-    trim: true,
+const userSchema = new Schema(
+  {
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+      lowercase: true,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      trim: true,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-});
+  {
+    versionKey: false,
+    timestamps: true,
+  }
+);
 
 userSchema.pre<IUser>("save", async function (next) {
   const user = this;

@@ -57,9 +57,10 @@ export const singIn = async (req: Request, res: Response) => {
 
 export const deleteUser = async (req: Request, res: Response) => {
   try {
-    const user = new User();
-    console.log(user);
-    return res.json(user);
+    await User.deleteOne({
+      _id: new Types.ObjectId("62fdc9da7e5a4f3a533adef1"),
+    });
+    res.send("User Deleted");
   } catch (error) {
     console.log(error);
     res.send(error);
